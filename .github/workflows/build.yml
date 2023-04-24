@@ -1,0 +1,41 @@
+name: Build
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+  push:
+    branches-ignore:
+      - 'master'
+
+jobs:
+  test-modern:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet: [ '6.0.x', '7.0.x' ]
+    name: Dotnet ${{ matrix.dotnet }} sample
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet }}
+      - name: Execute dotnet
+        run: dotnet build BitPayUnitTest
+  
+  test-legacy:
+    runs-on: windows-2022
+    strategy:
+      matrix:
+        dotnet: [ '4.8' ]
+    name: Dotnet ${{ matrix.dotnet }} sample
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet }}
+      - name: Execute dotnet
+        run: dotnet build BitPayUnitTest
