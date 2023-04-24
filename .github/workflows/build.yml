@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         dotnet: [ '6.0.x', '7.0.x' ]
-    name: Dotnet ${{ matrix.dotnet }} sample
+    name: .NET ${{ matrix.dotnet }}
     steps:
       - uses: actions/checkout@v3
       - name: Setup dotnet
@@ -30,7 +30,7 @@ jobs:
     strategy:
       matrix:
         dotnet: [ '4.8' ]
-    name: Dotnet ${{ matrix.dotnet }} sample
+    name: .NET ${{ matrix.dotnet }}
     steps:
       - uses: actions/checkout@v3
       - name: Setup dotnet
