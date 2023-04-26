@@ -23,7 +23,7 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet }}
       - name: Execute tests
-        run: dotnet build BitPayUnitTest
+        run: dotnet test BitPayUnitTest
   
   test-legacy:
     runs-on: windows-2022
@@ -35,4 +35,4 @@ jobs:
         with:
           dotnet-version: 4.8
       - name: Execute tests
-        run: dotnet build BitPayUnitTest
+        run: dotnet test BitPayUnitTest
