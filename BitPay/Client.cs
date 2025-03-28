@@ -316,11 +316,15 @@ namespace BitPay
         ///     Request a webhook to be resent.
         /// </summary>
         /// <param name="invoiceId">Invoice ID.</param>
+        /// <param name="invoiceToken">
+        ///    The resource token for the invoiceId. 
+        ///    This token can be retrieved from the Bitpay's invoice object.
+        /// </param>
         /// <returns>Status of request</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task<Boolean> RequestInvoiceWebhookToBeResent(string invoiceId)
+        public async Task<Boolean> RequestInvoiceWebhookToBeResent(string invoiceId, string invoiceToken)
         {
-            return await CreateInvoiceClient().RequestInvoiceWebhookToBeResent(invoiceId).ConfigureAwait(false);
+            return await CreateInvoiceClient().RequestInvoiceWebhookToBeResent(invoiceId, invoiceToken).ConfigureAwait(false);
         }
         
         /// <summary>
@@ -420,12 +424,16 @@ namespace BitPay
         ///     Send a refund notification
         /// </summary>
         /// <param name="refundId">A BitPay refundId </param>
+        /// <param name="refundToken">
+        ///    The resource token for the refundId. 
+        ///    This token can be retrieved from the Bitpay's refund object.
+        /// </param>
         /// <returns>An updated Refund Object </returns>
         /// <throws>RefundCreationException RefundCreationException class </throws>
         /// <throws>BitPayException BitPayException class </throws>
-        public async Task<Boolean> SendRefundNotification(string refundId)
+        public async Task<Boolean> SendRefundNotification(string refundId, string refundToken)
         {
-            return await CreateRefundClient().SendRefundNotification(refundId).ConfigureAwait(false);
+            return await CreateRefundClient().SendRefundNotification(refundId, refundToken).ConfigureAwait(false);
         }
 
         /// <summary>

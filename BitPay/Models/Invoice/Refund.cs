@@ -27,6 +27,9 @@ namespace BitPay.Models.Invoice
         [JsonProperty(PropertyName = "guid")]
         public string? ResourceGuid { get; set; }
 
+        [JsonProperty(PropertyName = "token")] 
+        public string? Token { get; set; }
+
         [JsonProperty(PropertyName = "refundAddress")]
         public string? RefundAddress { get; set; }
 

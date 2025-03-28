@@ -310,13 +310,17 @@ namespace BitPay.Clients
         ///     Request a webhook to be resent.
         /// </summary>
         /// <param name="invoiceId">Invoice ID.</param>
+        /// <param name="invoiceToken">
+        ///    The resource token for the invoiceId. 
+        ///    This token can be retrieved from the Bitpay's invoice object.
+        /// </param>
         /// <returns>Status of request</returns>
         /// <exception cref="BitPayGenericException">BitPayGenericException class</exception>
         /// <exception cref="BitPayApiException">BitPayApiException class</exception>
-        public async Task<bool> RequestInvoiceWebhookToBeResent(string invoiceId)
+        public async Task<bool> RequestInvoiceWebhookToBeResent(string invoiceId, string invoiceToken)
         {
             var parameters = ResourceClientUtil.InitParams();
-            parameters.Add("token", _accessTokens.GetAccessToken((Facade.Merchant)));
+            parameters.Add("token", invoiceToken);
 
             string json = null!;
             

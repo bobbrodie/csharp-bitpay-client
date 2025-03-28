@@ -30,5 +30,9 @@ namespace BitPay.Exceptions
                 return _code;
             }
         }
+
+        protected BitPayApiException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
     }
 }

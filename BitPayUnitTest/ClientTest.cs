@@ -7,12 +7,15 @@ using System.Net.Http;
 using BitPay;
 using BitPay.Clients;
 using BitPay.Exceptions;
+using BitPay.Models;
 using BitPay.Models.Bill;
 using BitPay.Models.Invoice;
 using BitPay.Models.Payout;
 using BitPay.Utils;
 
 using Moq;
+
+using Newtonsoft.Json;
 
 using Environment = BitPay.Environment;
 using SystemEnvironment = System.Environment;
@@ -826,11 +829,15 @@ namespace BitPayUnitTest
         [Fact]
         public void it_should_request_invoice_webhook_to_be_resent()
         {
+            var invoiceToken = "cM78LHk17Q8fktDE6QLBBFfvH1QKBhRkHibTLcxhgzsu3VDRvSyu3CGi17DuwYxhT";var responseObject = new 
+            {
+                token = invoiceToken
+            };
             // given
             HttpContent response = new StringContent(File.ReadAllText(GetJsonResponsePath() + "invoiceWebhookResponse.json"));
             _bitPayClient.Setup(b => b.Post(
                 "invoices/Hpqc63wvE1ZjzeeH4kEycF/notifications",
-            "{\"token\":\"merchantToken\"}",
+                JsonConvert.SerializeObject(responseObject),
                 false
             )).ReturnsAsync(new HttpResponseMessage
             {
@@ -841,7 +848,7 @@ namespace BitPayUnitTest
             });
 
             // when
-            var result = GetTestedClassAsMerchant().RequestInvoiceWebhookToBeResent("Hpqc63wvE1ZjzeeH4kEycF").Result;
+            var result = GetTestedClassAsMerchant().RequestInvoiceWebhookToBeResent("Hpqc63wvE1ZjzeeH4kEycF", invoiceToken).Result;
             
             // then
             Assert.True(result);
@@ -1665,11 +1672,16 @@ namespace BitPayUnitTest
         [Fact]
         public void it_should_send_refund_notification()
         {
+            var refundToken = "cM78LHk17Q8fktDE6QLBBFfvH1QKBhRkHibTLcxhgzsu3VDRvSyu3CGi17DuwYxhT";
+            var responseObject = new 
+            {
+                token = refundToken
+            };
             // given
             HttpContent response = new StringContent(File.ReadAllText(GetJsonResponsePath() + "sendRefundNotificationResponse.json"));
             _bitPayClient.Setup(b => b.Post(
                 "refunds/WoE46gSLkJQS48RJEiNw3L/notifications",
-                "{\"token\":\"merchantToken\"}",
+                JsonConvert.SerializeObject(responseObject),
                 true
             )).ReturnsAsync(new HttpResponseMessage
             {
@@ -1679,7 +1691,7 @@ namespace BitPayUnitTest
             });
 
             // when
-            var result = GetTestedClassAsMerchant().SendRefundNotification("WoE46gSLkJQS48RJEiNw3L").Result;
+            var result = GetTestedClassAsMerchant().SendRefundNotification("WoE46gSLkJQS48RJEiNw3L", refundToken).Result;
             
             // then
             Assert.True(result);

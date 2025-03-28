@@ -146,6 +146,7 @@ namespace BitPayFunctionalTest
             var refundToCreateRequest = new Refund(invoiceId: invoiceId, amount: 10.0M);
             var refund = await _client.CreateRefund(refundToCreateRequest);
             var refundId = refund.Id!;
+            var refundToken = refund.Token!;
 
             var retrieveRefund = await _client.GetRefund(refundId);
             Assert.Equal(refundId, retrieveRefund.Id);
@@ -158,7 +159,7 @@ namespace BitPayFunctionalTest
             Assert.NotEmpty(retrieveRefundByInvoiceId);
             retrieveRefundByInvoiceId.Exists(refundByInvoice => refundByInvoice.Invoice == invoiceId);
 
-            var refundNotification = await _client.SendRefundNotification(refundId);
+            var refundNotification = await _client.SendRefundNotification(refundId, refundToken);
             Assert.True(refundNotification);
 
             var cancelRefund = await _client.CancelRefund(refundId);

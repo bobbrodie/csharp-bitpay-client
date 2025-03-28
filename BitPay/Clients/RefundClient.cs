@@ -302,13 +302,17 @@ namespace BitPay.Clients
         ///     Send a refund notification
         /// </summary>
         /// <param name="refundId">A BitPay refundId </param>
+        /// <param name="refundToken">
+        ///    The resource token for the refundId. 
+        ///    This token can be retrieved from the Bitpay's refund object.
+        /// </param>
         /// <returns>An updated Refund Object </returns>
         /// <exception cref="BitPayGenericException">BitPayGenericException class</exception>
         /// <exception cref="BitPayApiException">BitPayApiException class</exception>
-        public async Task<bool> SendRefundNotification(string refundId)
+        public async Task<bool> SendRefundNotification(string refundId, string refundToken)
         {
             var parameters = ResourceClientUtil.InitParams();
-            parameters.Add("token", _accessTokens.GetAccessToken(Facade.Merchant));
+            parameters.Add("token", refundToken);
             
             string json;
             

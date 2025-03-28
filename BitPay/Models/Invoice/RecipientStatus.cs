@@ -3,7 +3,7 @@
 
 namespace BitPay.Models.Invoice
 {
-    public class RecipientStatus
+    public static class RecipientStatus
     {
         public const string Active = "active";
         public const string Invited = "invited";
