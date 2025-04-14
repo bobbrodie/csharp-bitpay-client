@@ -12,9 +12,7 @@ To get up and running with our C# library quickly, follow [The GUIDE](https://bi
 
 ## .NET supported versions
 
-SDK | 5.x.x | 6.x.x
---- | --- | ---
-.NET Supported version | net48, 6.0, 7.0 | net48, 6.0, 7.0, 8.0
+net48, 8.0, 9.0
 
 ## Support
 
